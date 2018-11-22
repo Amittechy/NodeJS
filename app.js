@@ -22,6 +22,7 @@ var usersRouter = require('./routes/users');
 var dishRouter = require('./routes/dishRouter');
 var promoRouter = require('./routes/promoRouter');
 var leaderRouter = require('./routes/leaderRouter');
+const uploadRouter = require('./routes/uploadRouter');
 
 
 var app = express();
@@ -43,6 +44,10 @@ app.use(express.urlencoded({ extended: false }));
 }));*/
 app.use(passport.initialize());
 app.use(passport.session());
+
+
+
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter)
 
@@ -69,6 +74,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/dishes', dishRouter);
 app.use('/promotions', promoRouter);
 app.use('/leaders', leaderRouter);
+app.use('/imageUpload',uploadRouter);
+
 
 
 
@@ -86,7 +93,6 @@ app.all('*', (req, res, next) => {
     res.redirect(307, 'https://' + req.hostname + ':' + app.get('secPort') + req.url);
   }
 });
-
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
