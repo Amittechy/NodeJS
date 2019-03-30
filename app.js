@@ -23,6 +23,7 @@ var dishRouter = require('./routes/dishRouter');
 var promoRouter = require('./routes/promoRouter');
 var leaderRouter = require('./routes/leaderRouter');
 const uploadRouter = require('./routes/uploadRouter');
+const favRouter = require('./routes/favourite');
 
 
 var app = express();
@@ -75,7 +76,7 @@ app.use('/dishes', dishRouter);
 app.use('/promotions', promoRouter);
 app.use('/leaders', leaderRouter);
 app.use('/imageUpload',uploadRouter);
-
+app.use('/fav',favRouter);
 
 
 
@@ -84,7 +85,7 @@ connect.then((db) => {
   console.log("Connected correctly to server");
 }, (err) => { console.log(err); });
 
-// Secure traffic only
+// Secure traffic only ,forwarding http req to https 
 app.all('*', (req, res, next) => {
   if (req.secure) {
     return next();
